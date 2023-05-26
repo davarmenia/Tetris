@@ -3,6 +3,7 @@
 ENGINE::ENGINE() {
 	game_settings = new SETTINGS();
 	game_window = new WINDOW(game_settings->get_game_heigth(), game_settings->get_game_width(), game_settings->get_game_name());
+	game_figure = new FIGURE();
 }
 
 void ENGINE::run_game() {
@@ -18,6 +19,7 @@ void ENGINE::run_game() {
 		}
 
 		game_window->window_->clear();
+		game_window->window_->draw(game_figure->get_object());
 		game_window->window_->display();
 	}
 }

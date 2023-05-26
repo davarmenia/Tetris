@@ -1,5 +1,6 @@
 #include "SETTINGS.h"
 #include "WINDOW.h"
+#include "FIGURE.h"
 #pragma once
 class ENGINE
 {
@@ -11,5 +12,6 @@ public:
 private:
 	SETTINGS* game_settings;
 	WINDOW* game_window;
+	FIGURE* game_figure;
 };
 

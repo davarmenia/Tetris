@@ -6,6 +6,11 @@ FIGURE::FIGURE() {
 
 	init_texure();
 	figure.setTexture(&texture);
+	figure.setTextureRect(sf::IntRect(0 * 40, 0, 50, 50));
+}
+
+sf::RectangleShape& FIGURE::get_object() {
+	return figure;
 }
 
 void FIGURE::init_texure() {
@@ -13,7 +18,7 @@ void FIGURE::init_texure() {
 	//{
 	//	// error...
 	//}
-	if (!texture.loadFromFile("C:\\Users\\Davit\\OneDrive\\Desktop\\Minesweeper\\x64\\Debug\\images\\digit.png"))
+	if (!texture.loadFromFile("C:\\Users\\Davit\\source\\repos\\Tetris\\x64\\Debug\\Images\\blocks.png"))
 	{
 		// error...
 	}
