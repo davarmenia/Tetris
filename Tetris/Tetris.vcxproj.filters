@@ -27,6 +27,9 @@
     <ClCompile Include="WINDOW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIGURE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ENGINE.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WINDOW.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIGURE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
