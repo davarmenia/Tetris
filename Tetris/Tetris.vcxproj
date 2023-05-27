@@ -131,12 +131,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ENGINE.cpp" />
+    <ClCompile Include="FIGURE.cpp" />
     <ClCompile Include="SETTINGS.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WINDOW.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ENGINE.h" />
+    <ClInclude Include="FIGURE.h" />
     <ClInclude Include="SETTINGS.h" />
     <ClInclude Include="WINDOW.h" />
   </ItemGroup>
