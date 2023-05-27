@@ -17,6 +17,7 @@ public:
 	int get_hrz_count() { return horizonical_count; }
 
 	std::vector<std::vector<int>>& get_game_map() { return game_array; }
+	void set_game_map(int index_x, int index_y, int value) { game_array[index_y][index_x] = value; }
 
 private:
 
