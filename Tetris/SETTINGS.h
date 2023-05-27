@@ -13,6 +13,9 @@ public:
 	int get_figure_cube_size_h() { return figure_cube_size_h; }
 	int get_figure_cube_size_w() { return figure_cube_size_w; }
 
+	int get_vrt_count() { return vertical_count; }
+	int get_hrz_count() { return horizonical_count; }
+
 	std::vector<std::vector<int>>& get_game_map() { return game_array; }
 
 private:
