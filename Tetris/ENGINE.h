@@ -14,6 +14,9 @@ private:
 	void start_game();
 	void generate_figure();
 	void next_step(int key);
+	void increment_tmp_x();
+	void decrement_tmp_x();
+	void increment_tmp_y();
 
 	SETTINGS* game_settings;
 	WINDOW* game_window;
@@ -23,7 +26,7 @@ private:
 	void init_new_figure();
 	std::vector<sf::Vector2i> tmp_figure;
 
-	int tmp_figure_id;
+	int tmp_figure_id = 0;
 
 	bool isValid(int row, int col);
 	bool generate_new_figure = true;

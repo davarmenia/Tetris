@@ -1,2 +1,22 @@
-﻿  SETTINGS.cpp
+﻿  ENGINE.cpp
+C:\Users\Arsen\source\repos\Tetris\Tetris\ENGINE.cpp(16,115): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Arsen\source\repos\Tetris\Tetris\ENGINE.cpp(16,70): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Arsen\source\repos\Tetris\Tetris\ENGINE.cpp(20,142): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Arsen\source\repos\Tetris\Tetris\ENGINE.cpp(20,83): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Tetris.vcxproj -> C:\Users\Arsen\source\repos\Tetris\x64\Debug\Tetris.exe
