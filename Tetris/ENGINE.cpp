@@ -6,6 +6,14 @@ ENGINE::ENGINE() {
 	game_figure = new FIGURE();
 }
 
+void ENGINE::init_map(std::vector<std::vector<int>>& draw_map) {
+	for (int m = 0; m < draw_map.size(); m++) {
+		for (int n = 0; n < draw_map[m].size(); n++) {
+			game_window->window_->draw(game_figure->get_object(sf::Vector2f(n * game_settings->get_figure_cube_size_w(), m * game_settings->get_figure_cube_size_h()), draw_map[m][n]));
+		}
+	}
+}
+
 void ENGINE::run_game() {
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
@@ -19,7 +27,7 @@ void ENGINE::run_game() {
 		}
 
 		game_window->window_->clear();
-		game_window->window_->draw(game_figure->get_object());
+		init_map(game_settings->get_game_map());
 		game_window->window_->display();
 	}
 }

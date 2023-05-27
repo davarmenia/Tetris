@@ -13,5 +13,8 @@ private:
 	SETTINGS* game_settings;
 	WINDOW* game_window;
 	FIGURE* game_figure;
+
+	void init_map(std::vector<std::vector<int>>& draw_map);
+
 };
 
