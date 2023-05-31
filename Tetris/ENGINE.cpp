@@ -325,6 +325,7 @@ void ENGINE::next_step(int key) {
 				}
 			}
 			break;
+
 		default:
 			break;
 		}
