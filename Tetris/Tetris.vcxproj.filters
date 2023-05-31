@@ -30,6 +30,9 @@
     <ClCompile Include="FIGURE.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MESSAGE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ENGINE.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIGURE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MESSAGE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
