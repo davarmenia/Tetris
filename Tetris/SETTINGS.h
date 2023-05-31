@@ -16,14 +16,18 @@ public:
 	int get_vrt_count() { return vertical_count; }
 	int get_hrz_count() { return horizonical_count; }
 
+	int get_game_freamrate() { return game_fremrate; }
+
 	std::vector<std::vector<int>>& get_game_map() { return game_array; }
-	void set_game_map(int index_x, int index_y, int value) { game_array[index_y][index_x] = value; }
+	void set_game_map(int index_x, int index_y, int value) { game_array[index_x][index_y] = value; }
+	void reset() { init_game_array(); };
 
 private:
 
 	void init_game_array();
 	// game window parameters
 	std::string game_name = "";
+	int game_fremrate = 60;
 
 	std::vector<std::vector<int>> game_array;
 
