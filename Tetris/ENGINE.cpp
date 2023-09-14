@@ -1,16 +1,36 @@
 ﻿#include "ENGINE.h"
 #include <cstdlib>
 #include <iostream>
+#include <thread>
 
 ENGINE::ENGINE() {
 	game_settings = new SETTINGS();
 	game_window = new WINDOW(game_settings->get_game_heigth(), game_settings->get_game_width(), game_settings->get_game_name(), game_settings->get_game_freamrate());
 	game_figure = new FIGURE();
 	game_text = new MESSAGE(sf::Vector2f(15, game_settings->get_game_heigth() - 24));
+	
+	auto image = sf::Image{};
+	if (!image.loadFromFile("icon.png"))
+	{
+		// Error handling...
+	}
+	game_window->window_->setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
 
 	for (int i = 0; i < 4; i++)
 		tmp_figure.push_back(sf::Vector2i());
+
+	/*if (tmp_buf.loadFromFile("sound.wav"))
+		buffer.push_back(tmp_buf);
+	if (tmp_buf.loadFromFile("line_remove.wav"))
+		buffer.push_back(tmp_buf);*/
 }
+
+void ENGINE::play_sound(int index)
+{
+	sound.setBuffer(buffer[index]);
+	sound.play();
+}
+
 
 void ENGINE::init_map(std::vector<std::vector<int>>& draw_map) {
 	for (int m = 0; m < draw_map.size(); m++) {
@@ -185,10 +205,11 @@ void ENGINE::next_step(int key) {
 			if (isValid(tmp_figure[0].x, tmp_figure[0].y + 1) && isValid(tmp_figure[1].x, tmp_figure[1].y + 1) && isValid(tmp_figure[2].x, tmp_figure[2].y + 1) && isValid(tmp_figure[3].x, tmp_figure[3].y + 1))
 				if (game_settings->get_game_map()[tmp_figure[0].x][tmp_figure[0].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[1].x][tmp_figure[1].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[2].x][tmp_figure[2].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[3].x][tmp_figure[3].y + 1] == 0) {
 					increment_tmp_y();
+					/*sound.setBuffer(buffer[0]);
+					sound.play();*/
 					break;
 				}
 			fix_tmp_figure();
-			next_step(1);
 			break;
 		default:
 			break;
@@ -325,7 +346,90 @@ void ENGINE::next_step(int key) {
 				}
 			}
 			break;
-
+		case 12:
+			if (isValid(tmp_figure[0].x + 2, tmp_figure[0].y) && isValid(tmp_figure[1].x + 1, tmp_figure[1].y + 1) && isValid(tmp_figure[3].x - 1, tmp_figure[3].y - 1)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x + 2][tmp_figure[0].y] == 0 && game_settings->get_game_map()[tmp_figure[1].x + 1][tmp_figure[1].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[3].x - 1][tmp_figure[3].y - 1] == 0) {
+					tmp_figure[0].x += 2; tmp_figure[0].y;
+					tmp_figure[1].x -= 1; tmp_figure[1].y += 1;
+					tmp_figure[3].x += 1; tmp_figure[3].y -= 1;
+					tmp_figure_id = 13;
+				}
+			}
+			break;
+		case 13:
+			if (isValid(tmp_figure[0].x - 1, tmp_figure[0].y) && isValid(tmp_figure[1].x + 1, tmp_figure[1].y) && isValid(tmp_figure[2].x, tmp_figure[2].y + 1) && (tmp_figure[3].x, tmp_figure[3].y + 1)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x - 1][tmp_figure[0].y] == 0 && game_settings->get_game_map()[tmp_figure[1].x + 1][tmp_figure[1].y] == 0 && game_settings->get_game_map()[tmp_figure[2].x][tmp_figure[2].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[3].x][tmp_figure[3].y + 1] == 0) {
+					tmp_figure[0].x -= 1; tmp_figure[0].y;
+					tmp_figure[1].x += 1; tmp_figure[1].y;
+					tmp_figure[2].x;      tmp_figure[2].y += 1;
+					tmp_figure[3].x;      tmp_figure[3].y += 1;
+					tmp_figure_id = 14;
+				}
+			}
+			break;
+		case 14:
+			if (isValid(tmp_figure[0].x - 1, tmp_figure[0].y + 1) && isValid(tmp_figure[2].x + 1, tmp_figure[2].y - 1) && (tmp_figure[3].x - 2, tmp_figure[3].y)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x - 1][tmp_figure[0].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[2].x + 1][tmp_figure[2].y - 1] == 0 && game_settings->get_game_map()[tmp_figure[3].x - 2][tmp_figure[3].y] == 0) {
+					tmp_figure[0].x -= 1; tmp_figure[0].y += 1;
+					tmp_figure[2].x += 1; tmp_figure[2].y -= 1;
+					tmp_figure[3].x -= 2; tmp_figure[3].y;
+					tmp_figure_id = 15;
+				}
+			}
+			break;
+		case 15:
+			if (isValid(tmp_figure[0].x, tmp_figure[0].y - 1) && isValid(tmp_figure[1].x, tmp_figure[1].y - 1) && (tmp_figure[2].x - 1, tmp_figure[2].y) && (tmp_figure[3].x + 1, tmp_figure[3].y)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x][tmp_figure[0].y - 1] == 0 && game_settings->get_game_map()[tmp_figure[1].x][tmp_figure[1].y - 1] == 0 && game_settings->get_game_map()[tmp_figure[2].x - 1][tmp_figure[2].y] == 0 && game_settings->get_game_map()[tmp_figure[3].x + 1][tmp_figure[3].y] == 0) {
+					tmp_figure[0].x;      tmp_figure[0].y -= 1;
+					tmp_figure[1].x;      tmp_figure[1].y -= 1;
+					tmp_figure[2].x -= 1; tmp_figure[2].y;
+					tmp_figure[3].x += 1; tmp_figure[3].y;
+					tmp_figure_id = 12;
+				}
+			}
+			break;
+		case 16:
+			if (isValid(tmp_figure[0].x - 1, tmp_figure[0].y + 1) && (tmp_figure[2].x + 1, tmp_figure[2].y) && (tmp_figure[3].x + 1, tmp_figure[3].y)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x - 1][tmp_figure[0].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[2].x + 1][tmp_figure[2].y] == 0 && game_settings->get_game_map()[tmp_figure[3].x + 1][tmp_figure[3].y] == 0) {
+					tmp_figure[0].x -= 1; tmp_figure[0].y += 1;
+					tmp_figure[1].x -= 1; tmp_figure[1].y += 1;
+					tmp_figure[2].x += 1; tmp_figure[2].y;
+					tmp_figure[3].x += 1; tmp_figure[3].y;
+					tmp_figure_id = 17;
+				}
+			}
+			break;
+		case 17:
+			if (isValid(tmp_figure[0].x + 1, tmp_figure[0].y - 1) && (tmp_figure[2].x - 2, tmp_figure[2].y + 1) && (tmp_figure[3].x - 1, tmp_figure[3].y)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x + 1][tmp_figure[0].y - 1] == 0 && game_settings->get_game_map()[tmp_figure[2].x - 2][tmp_figure[2].y + 1] == 0 && game_settings->get_game_map()[tmp_figure[3].x - 1][tmp_figure[3].y] == 0) {
+					tmp_figure[0].x += 1; tmp_figure[0].y -= 1;
+					tmp_figure[2].x -= 2; tmp_figure[2].y += 1;
+					tmp_figure[3].x -= 1; tmp_figure[3].y;
+					tmp_figure_id = 18;
+				}
+			}
+			break;
+		case 18:
+			if (isValid(tmp_figure[0].x - 1, tmp_figure[0].y) && (tmp_figure[1].x - 1, tmp_figure[1].y) && (tmp_figure[3].x + 1, tmp_figure[3].y - 1)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x - 1][tmp_figure[0].y] == 0 && game_settings->get_game_map()[tmp_figure[1].x - 1][tmp_figure[1].y] == 0 && game_settings->get_game_map()[tmp_figure[3].x + 1][tmp_figure[3].y - 1] == 0) {
+					tmp_figure[0].x -= 1; tmp_figure[0].y;
+					tmp_figure[1].x -= 1; tmp_figure[1].y;
+					tmp_figure[2].x += 1; tmp_figure[2].y -= 1;
+					tmp_figure[3].x += 1; tmp_figure[3].y -= 1;
+					tmp_figure_id = 19;
+				}
+			}
+			break;
+		case 19:
+			if (isValid(tmp_figure[0].x + 1, tmp_figure[0].y) && (tmp_figure[1].x + 2, tmp_figure[1].y - 1) && (tmp_figure[3].x - 1, tmp_figure[3].y + 1)) {
+				if (game_settings->get_game_map()[tmp_figure[0].x + 1][tmp_figure[0].y] == 0 && game_settings->get_game_map()[tmp_figure[1].x + 2][tmp_figure[1].y - 1] == 0 && game_settings->get_game_map()[tmp_figure[3].x - 1][tmp_figure[3].y + 1] == 0) {
+					tmp_figure[0].x += 1; tmp_figure[0].y;
+					tmp_figure[1].x += 2; tmp_figure[1].y -= 1;
+					tmp_figure[3].x -= 1; tmp_figure[3].y += 1;
+					tmp_figure_id = 16;
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -333,6 +437,8 @@ void ENGINE::next_step(int key) {
 	default:
 		break;
 	}
+	
+	
 }
 
 void ENGINE::update_text() {
@@ -364,7 +470,7 @@ void ENGINE::update_text() {
 
 void ENGINE::generate_figure() {
 	srand((unsigned)time(NULL));
-	tmp_figure_id = 1 + (rand() % 11);
+	tmp_figure_id = 1 + (rand() % 19);
 	switch (tmp_figure_id)
 	{
 	case 1:
@@ -485,8 +591,8 @@ void ENGINE::generate_figure() {
 		// * *
 		tmp_figure[0] = sf::Vector2i(4, 0);
 		tmp_figure[1] = sf::Vector2i(4, 1);
-		tmp_figure[2] = sf::Vector2i(5, 2);
-		tmp_figure[3] = sf::Vector2i(6, 2);
+		tmp_figure[2] = sf::Vector2i(4, 2);
+		tmp_figure[3] = sf::Vector2i(5, 2);
 		break;
 	case 15:
 		// * * *

@@ -2,6 +2,7 @@
 #include "WINDOW.h"
 #include "FIGURE.h"
 #include "MESSAGE.h"
+#include <SFML/Audio.hpp>
 #pragma once
 class ENGINE
 {
@@ -23,6 +24,7 @@ private:
 	void check_line_fill();
 	void remove_lines();
 	void update_text();
+	void play_sound(int index);
 
 	SETTINGS* game_settings;
 	WINDOW* game_window;
@@ -31,10 +33,12 @@ private:
 
 
 	sf::Clock clock;
+	sf::Sound sound;
+	sf::SoundBuffer tmp_buf;
+	std::vector< sf::SoundBuffer > buffer;
 	int broken_lines = 0;
 	int score = 0;
 	void init_map(std::vector<std::vector<int>>& draw_map);
-	void init_new_figure();
 	std::vector<sf::Vector2i> tmp_figure;
 	std::vector<int> removed_lines;
 
